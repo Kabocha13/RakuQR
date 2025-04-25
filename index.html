@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ラクア-Ver6.0</title>
+  <title>ラクア-Ver5.6</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="apple-touch-icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-TqUoSIxdkbPuooctOiqi5gifXDO0oV1bQ&s"/>
   <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-TqUoSIxdkbPuooctOiqi5gifXDO0oV1bQ&s">
@@ -110,7 +110,7 @@
       }
       const monthCounts = {};
       for (const d of weekdays) {
-        const yyyymm = ${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')};
+        const yyyymm = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}`;
         monthCounts[yyyymm] = (monthCounts[yyyymm] || 0) + 1;
       }
       const sortedMonths = Object.keys(monthCounts).sort((a, b) => {
@@ -127,7 +127,7 @@
         for (let i = 1; i <= 5; i++) {
           const d = new Date(startDate);
           d.setDate(startDate.getDate() + i);
-          const yyyymm = ${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')};
+          const yyyymm = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}`;
           if (yyyymm === targetMonth) {
             hasWeekdayInTargetMonth = true;
             break;
@@ -138,7 +138,7 @@
         }
         startDate.setDate(startDate.getDate() + 7);
       }
-      return https://www.cit-s.com/wp/wp-content/themes/cit/menu/${baseName}_${targetMonth}_${weekNumber}.png;
+      return `https://www.cit-s.com/wp/wp-content/themes/cit/menu/${baseName}_${targetMonth}_${weekNumber}.png`;
     }
 
     const menu1 = document.createElement("img");
@@ -155,7 +155,7 @@
       const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
       const today = new Date().getDay();
       const target = days[today];
-      location.href = ${target}.html;
+      location.href = `${target}.html`;
     });
   </script>
 </body>

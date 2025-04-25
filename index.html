@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ラクア-Ver5.6</title>
+  <title>ラクア-Ver6.0</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="apple-touch-icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-TqUoSIxdkbPuooctOiqi5gifXDO0oV1bQ&s"/>
   <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-TqUoSIxdkbPuooctOiqi5gifXDO0oV1bQ&s">
@@ -142,6 +142,7 @@
   <h>このサービスを利用したことによる利害について製作者は一切の責任をもちません。</h>
   <h>スポーツ,補習授業等の表示依頼は個人LINEまでお願いします。</h>
 
+  <!-- サイドメニュー -->
   <div id="sideMenu" class="side-menu">
     <h2>メニュー</h2>
     <button onclick="location.href='contact.html'">問い合わせフォーム</button>
@@ -150,7 +151,8 @@
 
   <script>
     function toggleMenu() {
-      document.getElementById("sideMenu").classList.toggle("open");
+      const sideMenu = document.getElementById("sideMenu");
+      sideMenu.classList.toggle("open");
     }
 
     function getMenuURL(baseName) {

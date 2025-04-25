@@ -28,51 +28,6 @@
       font-size: 1.2rem;
       margin: 0;
     }
-    .menu-toggle {
-      margin-left: auto;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 10px;
-    }
-    .menu-toggle img {
-      height: 24px;
-      width: 24px;
-      filter: invert(1);
-    }
-    .side-menu {
-      position: fixed;
-      top: 0;
-      right: -260px;
-      width: 260px;
-      height: 100%;
-      background-color: #444;
-      color: white;
-      box-shadow: -2px 0 5px rgba(0,0,0,0.5);
-      transition: right 0.3s ease;
-      z-index: 1000;
-      padding: 20px;
-    }
-    .side-menu.open {
-      right: 0;
-    }
-    .side-menu h2 {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-    }
-    .side-menu button {
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      background-color: #2196F3;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-    }
-    .side-menu button:hover {
-      background-color: #1976D2;
-    }
     .menu-image {
       text-align: center;
       margin-bottom: 30px;
@@ -105,6 +60,7 @@
       gap: 20px;
       margin-top: 10px;
     }
+
     .sub-button {
       padding: 0.8rem 1.2rem;
       font-size: 1rem;
@@ -114,20 +70,18 @@
       border-radius: 8px;
       transition: background-color 0.3s ease;
     }
+
     .sub-button:active {
       background-color: #388E3C;
     }
+
   </style>
 </head>
 <body>
   <header>
     <a href="index.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-TqUoSIxdkbPuooctOiqi5gifXDO0oV1bQ&s"></a>
     <h1>RakuQR</h1>
-    <button class="menu-toggle" onclick="toggleMenu()">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/menu--v1.png" alt="メニュー">
-    </button>
   </header>
-
   <h>5/2まではバグが多発する可能性があります。</h>
   <button id="go-today" href="https://kabocha13.github.io/RakuQR/monday.html">出席する</button>
   <div class="button-row">
@@ -135,26 +89,14 @@
     <button class="sub-button" onclick="location.href='https://portal.it-chiba.ac.jp/uprx/up/pk/pky001/Pky00101.xhtml/'">CITportal</button>
   </div>
 
+
   <h1>今週の食堂メニュー</h1>
   <div id="menu1" class="menu-image"></div>
   <div id="menu2" class="menu-image"></div>
-
   <h>このサービスを利用したことによる利害について製作者は一切の責任をもちません。</h>
   <h>スポーツ,補習授業等の表示依頼は個人LINEまでお願いします。</h>
 
-  <!-- サイドメニュー -->
-  <div id="sideMenu" class="side-menu">
-    <h2>メニュー</h2>
-    <button onclick="location.href='contact.html'">問い合わせフォーム</button>
-    <button onclick="location.href='faq.html'">よくある質問</button>
-  </div>
-
   <script>
-    function toggleMenu() {
-      const sideMenu = document.getElementById("sideMenu");
-      sideMenu.classList.toggle("open");
-    }
-
     function getMenuURL(baseName) {
       const today = new Date();
       const day = today.getDay();
@@ -168,7 +110,7 @@
       }
       const monthCounts = {};
       for (const d of weekdays) {
-        const yyyymm = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}`;
+        const yyyymm = ${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')};
         monthCounts[yyyymm] = (monthCounts[yyyymm] || 0) + 1;
       }
       const sortedMonths = Object.keys(monthCounts).sort((a, b) => {
@@ -185,7 +127,7 @@
         for (let i = 1; i <= 5; i++) {
           const d = new Date(startDate);
           d.setDate(startDate.getDate() + i);
-          const yyyymm = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}`;
+          const yyyymm = ${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')};
           if (yyyymm === targetMonth) {
             hasWeekdayInTargetMonth = true;
             break;
@@ -196,7 +138,7 @@
         }
         startDate.setDate(startDate.getDate() + 7);
       }
-      return `https://www.cit-s.com/wp/wp-content/themes/cit/menu/${baseName}_${targetMonth}_${weekNumber}.png`;
+      return https://www.cit-s.com/wp/wp-content/themes/cit/menu/${baseName}_${targetMonth}_${weekNumber}.png;
     }
 
     const menu1 = document.createElement("img");
@@ -213,7 +155,7 @@
       const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
       const today = new Date().getDay();
       const target = days[today];
-      location.href = `${target}.html`;
+      location.href = ${target}.html;
     });
   </script>
 </body>

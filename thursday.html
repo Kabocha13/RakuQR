@@ -48,6 +48,12 @@
     .hidden {
       display: none;
     }
+    .no-class {
+      text-align: center;
+      color: #888;
+      font-size: 1.2rem;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
@@ -61,6 +67,7 @@
   <a id="btn-comp-hi" class="button hidden" href="https://attendance.is.it-chiba.ac.jp/attendance/class_room/8109" target="_blank">
     木34 ヒューマンインターフェース論
   </a>
+  <div id="no-class-msg" class="no-class hidden">現在出席できる授業はありません。</div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -68,19 +75,26 @@
       const time = now.getHours() + now.getMinutes() / 60;
 
       const classes = [
-        { btnId: 'btn-com-jri', start: 8.5, end: 10},   
-        { btnId: 'btn-comp-hi',    start: 10.5, end: 12},
+        { btnId: 'btn-com-jri', start: 8.5, end: 10 },
+        { btnId: 'btn-comp-hi', start: 10.5, end: 12 },
       ];
+
+      let visibleCount = 0;
 
       classes.forEach(c => {
         const btn = document.getElementById(c.btnId);
         if (!btn) return;
         if (time >= c.start && time <= c.end) {
           btn.classList.remove('hidden');
+          visibleCount++;
         } else {
           btn.classList.add('hidden');
         }
       });
+
+      if (visibleCount === 0) {
+        document.getElementById('no-class-msg').classList.remove('hidden');
+      }
     });
   </script>
 </body>

@@ -67,6 +67,8 @@
   <a id="btn-comp-carr" class="button hidden" href="https://attendance.is.it-chiba.ac.jp/attendance/class_room/1261" target="_blank">
     金78 キャリアデザイン2
   </a>
+  <div id="no-class-msg" class="no-class hidden">現在出席できる授業はありません。</div>
+
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -80,16 +82,23 @@
         { btnId: 'btn-comp-carr',    start: 14.5, end: 16},
       ];
 
-      classes.forEach(c => {
-        const btn = document.getElementById(c.btnId);
-        if (!btn) return;
-        if (time >= c.start && time <= c.end) {
-          btn.classList.remove('hidden');
-        } else {
-          btn.classList.add('hidden');
-        }
-      });
+      let visibleCount = 0;
+
+    classes.forEach(c => {
+      const btn = document.getElementById(c.btnId);
+      if (!btn) return;
+      if (time >= c.start && time <= c.end) {
+        btn.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        btn.classList.add('hidden');
+      }
     });
+
+    if (visibleCount === 0) {
+      document.getElementById('no-class-msg').classList.remove('hidden');
+    }
+
   </script>
 </body>
 </html>

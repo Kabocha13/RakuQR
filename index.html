@@ -3,60 +3,130 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>月曜日</title>
+  <title>ラクア</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
+      font-family: sans-serif;
     }
     header {
+      background-color: #333;
+      color: white;
       display: flex;
       align-items: center;
-      justify-content: space-between;
       padding: 10px;
-      background-color: #4CAF50;
     }
     header img {
       height: 40px;
+      margin-right: 10px;
       cursor: pointer;
     }
-    h1 {
-      text-align: center;
-      font-size: 1.8rem;
-      margin-top: 20px;
+    header h1 {
+      font-size: 1.2rem;
+      margin: 0;
     }
-    .button {
+    .menu-image {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .menu-image img {
+      max-width: 100%;
+      height: auto;
+    }
+    #go-today {
       display: block;
-      width: 80%;
+      width: 90%;
       max-width: 400px;
       margin: 20px auto;
       padding: 1rem;
-      font-size: 1.25rem;
-      background-color: #4CAF50;
+      font-size: 1.5rem;
+      background-color: #2196F3;
       color: white;
       border: none;
       border-radius: 8px;
       text-align: center;
-      transition: transform 0.3s ease;
+      transition: transform 0.2s ease, background-color 0.3s;
     }
-    .button:hover {
-      transform: scale(1.1);
+    #go-today:active {
+      transform: scale(0.96);
+      background-color: #1976D2;
     }
   </style>
 </head>
 <body>
   <header>
-    <a href="index.html"><img src="https://091ac22d-473f-43fb-a127-3129b1b343cb.jpg" alt="ホーム" /></a>
+    <a href="index.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-TqUoSIxdkbPuooctOiqi5gifXDO0oV1bQ&s"></a>
+    <h1>RakuQR</h1>
   </header>
-  <h1>月曜日</h1>
-  <a class="button" href="https://attendance.is.it-chiba.ac.jp/attendance/class_room/1251" target="_blank">
-    月1234 コミュニケーションデザイン
-  </a>
-  <a class="button" href="https://attendance.is.it-chiba.ac.jp/attendance/class_room/5202" target="_blank">
-    月67 コンピュータ工学
-  </a>
+
+  <button id="go-today" href="https://kabocha13.github.io/RakuQR/monday.html">出席する</button>
+
+  <h1>今週の食堂メニュー</h1>
+  <div id="menu1" class="menu-image"></div>
+  <div id="menu2" class="menu-image"></div>
+
+  <script>
+    function getMenuURL(baseName) {
+      const today = new Date();
+      const day = today.getDay();
+      const sunday = new Date(today);
+      sunday.setDate(today.getDate() - day);
+      const weekdays = [];
+      for (let i = 1; i <= 5; i++) {
+        const d = new Date(sunday);
+        d.setDate(sunday.getDate() + i);
+        weekdays.push(d);
+      }
+      const monthCounts = {};
+      for (const d of weekdays) {
+        const yyyymm = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}`;
+        monthCounts[yyyymm] = (monthCounts[yyyymm] || 0) + 1;
+      }
+      const sortedMonths = Object.keys(monthCounts).sort((a, b) => {
+        if (monthCounts[a] === monthCounts[b]) return b.localeCompare(a);
+        return monthCounts[b] - monthCounts[a];
+      });
+      const targetMonth = sortedMonths[0];
+      const startDate = new Date(Number(targetMonth.slice(0, 4)), Number(targetMonth.slice(4)) - 1, 1);
+      startDate.setDate(startDate.getDate() - startDate.getDay());
+      let weekNumber = 0;
+      const now = new Date();
+      while (startDate <= now) {
+        let hasWeekdayInTargetMonth = false;
+        for (let i = 1; i <= 5; i++) {
+          const d = new Date(startDate);
+          d.setDate(startDate.getDate() + i);
+          const yyyymm = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}`;
+          if (yyyymm === targetMonth) {
+            hasWeekdayInTargetMonth = true;
+            break;
+          }
+        }
+        if (hasWeekdayInTargetMonth) {
+          weekNumber++;
+        }
+        startDate.setDate(startDate.getDate() + 7);
+      }
+      return `https://www.cit-s.com/wp/wp-content/themes/cit/menu/${baseName}_${targetMonth}_${weekNumber}.png`;
+    }
+
+    const menu1 = document.createElement("img");
+    menu1.src = getMenuURL("sd1");
+    menu1.alt = "食堂メニュー1";
+    document.getElementById("menu1").appendChild(menu1);
+
+    const menu2 = document.createElement("img");
+    menu2.src = getMenuURL("sd2");
+    menu2.alt = "食堂メニュー2";
+    document.getElementById("menu2").appendChild(menu2);
+
+    document.getElementById("go-today").addEventListener("click", () => {
+      const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+      const today = new Date().getDay();
+      const target = days[today];
+      location.href = `${target}.html`;
+    });
+  </script>
 </body>
 </html>

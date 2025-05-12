@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ラクア Ver9.0</title>
+  <title>ラクア Ver8.4</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="apple-touch-icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-TqUoSIxdkbPuooctOiqi5gifXDO0oV1bQ&s"/>
   <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-TqUoSIxdkbPuooctOiqi5gifXDO0oV1bQ&s">
@@ -28,6 +28,21 @@
     header h1 {
       font-size: 1.2rem;
       margin: 0;
+    }
+    .menu-image-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 4%;
+      margin: 20px auto;
+      max-width: 800px;
+      padding: 0 10px;
+    }
+    .menu-image-row img {
+      width: 48%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     }
     .menu-image {
       text-align: center;
@@ -142,9 +157,7 @@
       align-items: center;
       justify-content: center;
     }
-    .talk {
-      color: red;
-    }
+
     .btn--large {
       width: 60px;
       height: 60px;
@@ -184,6 +197,9 @@
     .btn--question {
       background: #16a085;
     }
+    .talk {
+      color: red;
+    }
   </style>
 </head>
 <body>
@@ -192,13 +208,14 @@
     <h1>RakuQR</h1>
   </header>
   <div class="talk">・一緒にディズニー行ってくれる人募集中！！</div>
-  <button id="go-today" href="https://kabocha13.github.io/RakuQR/monday.html">出席する</button>
+  <button id="go-today">出席する</button>
   <div class="button-row">
     <button class="sub-button" onclick="location.href='https://cit.manaba.jp/ct/home/'">manaba</button>
     <button class="sub-button" onclick="location.href='https://portal.it-chiba.ac.jp/uprx/up/pk/pky001/Pky00101.xhtml/'">CITportal</button>
   </div>
 
-  <div id="menu-banners" class="menu-image"></div>
+  <div id="menu-banners" class="menu-image-row"></div>
+
   <h1>今週の食堂メニュー</h1>
   <div id="menu1" class="menu-image"></div>
   <div id="menu2" class="menu-image"></div>
@@ -276,30 +293,33 @@
     document.getElementById("go-today").addEventListener("click", () => {
       const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
       const today = new Date().getDay();
-      const target = days[today];
-      location.href = `${target}.html`;
+      location.href = `${days[today]}.html`;
     });
 
-    // 以下追加スクリプト：バナー画像を現在時刻付きで表示
-    function getTimestamp() {
-      const now = new Date();
-      return `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
-    }
-
+    // 画像バナーを平日11:00〜14:00のみ表示
     (function insertBanners() {
-      const timestamp = getTimestamp();
-      const urls = [
-        `https://www.cit-s.com/i_catch/dining/narashino1_dummy.jpg?${timestamp}`,
-        `https://www.cit-s.com/i_catch/dining/narashino2_dummy.jpg?${timestamp}`
-      ];
-      const bannerDiv = document.getElementById("menu-banners");
-
-      urls.forEach(url => {
-        const img = document.createElement("img");
-        img.src = url;
-        img.alt = "食堂バナー";
-        bannerDiv.appendChild(img);
-      });
+      const now = new Date();
+      const day = now.getDay();
+      const hour = now.getHours();
+      if (day >= 1 && day <= 5 && hour >= 11 && hour < 14) {
+        const timestamp = now.getFullYear().toString()
+          + String(now.getMonth() + 1).padStart(2, '0')
+          + String(now.getDate()).padStart(2, '0')
+          + String(now.getHours()).padStart(2, '0')
+          + String(now.getMinutes()).padStart(2, '0')
+          + String(now.getSeconds()).padStart(2, '0');
+        const urls = [
+          `https://www.cit-s.com/i_catch/dining/narashino1_dummy.jpg?${timestamp}`,
+          `https://www.cit-s.com/i_catch/dining/narashino2_dummy.jpg?${timestamp}`
+        ];
+        const bannerDiv = document.getElementById("menu-banners");
+        urls.forEach(url => {
+          const img = document.createElement("img");
+          img.src = url;
+          img.alt = "食堂バナー";
+          bannerDiv.appendChild(img);
+        });
+      }
     })();
   </script>
 </body>

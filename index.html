@@ -310,8 +310,8 @@
           + String(now.getMinutes()).padStart(2, '0')
           + String(now.getSeconds()).padStart(2, '0');
         const urls = [
-          `https://www.cit-s.com/i_catch/dining/narashino1_dummy.jpg?${timestamp}`,
-          `https://www.cit-s.com/i_catch/dining/narashino2_dummy.jpg?${timestamp}`
+          `https://www.cit-s.com/i_catch/dining/narashino1_dummy.jpg/${timestamp}`,
+          `https://www.cit-s.com/i_catch/dining/narashino2_dummy.jpg/${timestamp}`
         ];
         const bannerDiv = document.getElementById("menu-banners");
         urls.forEach(url => {

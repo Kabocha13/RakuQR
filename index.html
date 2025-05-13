@@ -37,6 +37,17 @@
       max-width: 100%;
       height: auto;
     }
+    .menu-header-images {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 30px;
+    }
+    .menu-header-images img {
+      max-width: 45%;
+      height: auto;
+      border-radius: 8px;
+    }
     #go-today {
       display: block;
       width: 90%;
@@ -61,7 +72,6 @@
       gap: 20px;
       margin-top: 10px;
     }
-
     .sub-button {
       padding: 0.8rem 1.2rem;
       font-size: 1rem;
@@ -71,15 +81,12 @@
       border-radius: 8px;
       transition: background-color 0.3s ease;
     }
-
     .sub-button:active {
       background-color: #388E3C;
     }
-
     input[type="checkbox"] {
       display: none;
     }
-
     .actions-menu {
       position: fixed;
       width: 60px;
@@ -87,7 +94,6 @@
       right: 15px;
       bottom: 15px;
     }
-
     .actions-menu .btn {
       position: absolute;
       top: 8px;
@@ -97,7 +103,6 @@
                   left 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
                   opacity 200ms;
     }
-
     .actions-menu .btn--menu {
       position: absolute;
       opacity: 1;
@@ -105,33 +110,26 @@
       left: 0;
       z-index: 0;
     }
-
     .btn--menu, #actionMenuButton:checked + .actions-menu > .btn {
       opacity: 1;
       box-shadow: 0 5px 20px rgba(0,0,0,0.2);
     }
-
     #actionMenuButton:checked + .actions-menu > .btn--menu:after {
       transform: rotate(45deg);
     }
-
     #actionMenuButton:checked + .actions-menu > .btn--menu:before {
       transform: rotate(-45deg);
     }
-
     #actionMenuButton:checked + .actions-menu > .btn--share {
       top: -70px;
     }
-
     #actionMenuButton:checked + .actions-menu > .btn--mail {
       top: -50px;
       left: -50px;
     }
-
     #actionMenuButton:checked + .actions-menu > .btn--question {
       left: -70px;
     }
-
     .btn {
       background: #e74c3c;
       border: none;
@@ -152,7 +150,6 @@
       top: 0;
       left: 0;
     }
-
     .btn--menu:after, .btn--menu:before {
       content: "";
       display: block;
@@ -164,23 +161,18 @@
       left: 18px;
       transition: transform 100ms;
     }
-
     .btn--menu:after {
       transform: translateY(-5px);
     }
-
     .btn--menu:before {
       transform: translateY(5px);
     }
-
     .btn--share {
       background: #f39c12;
     }
-
     .btn--mail {
       background: #2ecc71;
     }
-
     .btn--question {
       background: #16a085;
     }
@@ -191,19 +183,28 @@
     <a href="index.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-TqUoSIxdkbPuooctOiqi5gifXDO0oV1bQ&s"></a>
     <h1>RakuQR</h1>
   </header>
+
   <div class="talk">・一緒にディズニー行ってくれる人募集中！！</div>
-  <button id="go-today" href="https://kabocha13.github.io/RakuQR/monday.html">出席する</button>
+
+  <button id="go-today">出席する</button>
+
   <div class="button-row">
     <button class="sub-button" onclick="location.href='https://cit.manaba.jp/ct/home/'">manaba</button>
     <button class="sub-button" onclick="location.href='https://portal.it-chiba.ac.jp/uprx/up/pk/pky001/Pky00101.xhtml/'">CITportal</button>
+  </div>
+
+  <!-- 追加した画像表示部分 -->
+  <div class="menu-header-images">
+    <img src="https://www.cit-s.com/i_catch/dining/narashino1.jpg?20250513113244" alt="narashino1">
+    <img src="https://www.cit-s.com/i_catch/dining/narashino2.jpg?20250513113244" alt="narashino2">
   </div>
 
   <h1>今週の食堂メニュー</h1>
   <div id="menu1" class="menu-image"></div>
   <div id="menu2" class="menu-image"></div>
   <h>このサービスを利用したことによる利害について製作者は一切の責任をもちません。</h>
-  <input type="checkbox" id="actionMenuButton"/>
 
+  <input type="checkbox" id="actionMenuButton"/>
   <div class="actions-menu">
     <button class="btn btn--share" onclick="window.open('https://twitter.com/intent/tweet?url=https%3A%2F%2Fkabocha13.github.io%2FRakuQR%2F&text=24年入学知能メディア工学科専用出席アプリ&via=kabocha13_cit', '_blank')">
       <span class="material-icons" style="color:white;">share</span>
@@ -231,7 +232,7 @@
       }
       const monthCounts = {};
       for (const d of weekdays) {
-        const yyyymm = ${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')};
+        const yyyymm = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}`;
         monthCounts[yyyymm] = (monthCounts[yyyymm] || 0) + 1;
       }
       const sortedMonths = Object.keys(monthCounts).sort((a, b) => {
@@ -248,7 +249,7 @@
         for (let i = 1; i <= 5; i++) {
           const d = new Date(startDate);
           d.setDate(startDate.getDate() + i);
-          const yyyymm = ${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')};
+          const yyyymm = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}`;
           if (yyyymm === targetMonth) {
             hasWeekdayInTargetMonth = true;
             break;
@@ -259,7 +260,7 @@
         }
         startDate.setDate(startDate.getDate() + 7);
       }
-      return https://www.cit-s.com/wp/wp-content/themes/cit/menu/${baseName}_${targetMonth}_${weekNumber}.png;
+      return `https://www.cit-s.com/wp/wp-content/themes/cit/menu/${baseName}_${targetMonth}_${weekNumber}.png`;
     }
 
     const menu1 = document.createElement("img");
@@ -276,7 +277,7 @@
       const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
       const today = new Date().getDay();
       const target = days[today];
-      location.href = ${target}.html;
+      location.href = `${target}.html`;
     });
   </script>
 </body>

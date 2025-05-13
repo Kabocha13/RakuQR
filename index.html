@@ -194,11 +194,8 @@
     <button class="sub-button" onclick="location.href='https://portal.it-chiba.ac.jp/uprx/up/pk/pky001/Pky00101.xhtml/'">CITportal</button>
   </div>
 
-  <!-- 追加した画像表示部分 -->
-  <div class="menu-header-images">
-    <img src="https://www.cit-s.com/i_catch/dining/narashino1.jpg?version=@php echo uniqid(); @endphp" alt="" />
-    <img src="https://www.cit-s.com/i_catch/dining/narashino2.jpg?version=@php echo uniqid(); @endphp" alt="" />
-  </div>
+  <!-- メニュー画像（タップ更新機能付き） -->
+  <div class="menu-header-images" id="menuHeaderImages"></div>
 
   <h1>今週の食堂メニュー</h1>
   <div id="menu1" class="menu-image"></div>
@@ -220,6 +217,33 @@
   </div>
 
   <script>
+    function getCurrentTimestamp() {
+      const now = new Date();
+      const yyyy = now.getFullYear();
+      const MM = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      const ss = String(now.getSeconds()).padStart(2, '0');
+      return `${yyyy}${MM}${dd}${hh}${mm}${ss}`;
+    }
+
+    function createReloadableImage(baseUrl) {
+      const img = document.createElement("img");
+      const updateSrc = () => {
+        img.src = `${baseUrl}${getCurrentTimestamp()}`;
+      };
+      updateSrc(); // 初期表示
+      img.alt = "食堂ヘッダー画像";
+      img.style.cursor = "pointer";
+      img.addEventListener("click", updateSrc);
+      return img;
+    }
+
+    const headerImageContainer = document.getElementById("menuHeaderImages");
+    headerImageContainer.appendChild(createReloadableImage("https://www.cit-s.com/i_catch/dining/narashino1.jpg?"));
+    headerImageContainer.appendChild(createReloadableImage("https://www.cit-s.com/i_catch/dining/narashino2.jpg?"));
+
     function getMenuURL(baseName) {
       const today = new Date();
       const day = today.getDay();

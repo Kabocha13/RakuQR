@@ -215,7 +215,7 @@
     <button class="sub-button" onclick="location.href='https://portal.it-chiba.ac.jp/uprx/up/pk/pky001/Pky00101.xhtml/'">CITportal</button>
   </div>
 
-  <div id="menu-banners" class="menu-image-row"></div>
+  <div id="menu-banners">https://www.cit-s.com/i_catch/dining/narashino1_dummy.jpg</div>
 
   <h1>今週の食堂メニュー</h1>
   <div id="menu1" class="menu-image"></div>
@@ -295,33 +295,7 @@
       const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
       const today = new Date().getDay();
       location.href = `${days[today]}.html`;
-    });
-
-    // 画像バナーを平日11:00〜14:00のみ表示
-    (function insertBanners() {
-      const now = new Date();
-      const day = now.getDay();
-      const hour = now.getHours();
-      if (day >= 1 && day <= 5 && hour >= 11 && hour < 14) {
-        const timestamp = now.getFullYear().toString()
-          + String(now.getMonth() + 1).padStart(2, '0')
-          + String(now.getDate()).padStart(2, '0')
-          + String(now.getHours()).padStart(2, '0')
-          + String(now.getMinutes()).padStart(2, '0')
-          + String(now.getSeconds()).padStart(2, '0');
-        const urls = [
-          `https://www.cit-s.com/i_catch/dining/narashino1_dummy.jpg/${timestamp}`,
-          `https://www.cit-s.com/i_catch/dining/narashino2_dummy.jpg/${timestamp}`
-        ];
-        const bannerDiv = document.getElementById("menu-banners");
-        urls.forEach(url => {
-          const img = document.createElement("img");
-          img.src = url;
-          img.alt = "食堂バナー";
-          bannerDiv.appendChild(img);
-        });
-      }
-    })();
+    });();
   </script>
 </body>
 </html>

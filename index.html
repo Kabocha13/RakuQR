@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQQE0P1Q96"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -13,7 +12,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Cache-Control" content="no-store">
-  <title>ラクア Ver11.3</title>
+  <title>ラクア Ver12</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="apple-touch-icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-TqUoSIxdkbPuooctOiqi5gifXDO0oV1bQ&s"/>
   <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-TqUoSIxdkbPuooctOiqi5gifXDO0oV1bQ&s">
@@ -204,7 +203,7 @@
   </div>
 
   <div class="menu-header-images" id="menuHeaderImages"></div>
-  <h> 画像タップで最新画像に更新</h>
+  <p id="image-update-info" style="display: none;">画像タップで最新画像に更新</p>
 
   <h1>今週の食堂メニュー</h1>
   <div id="menu1" class="menu-image"></div>
@@ -225,7 +224,19 @@
     <label for="actionMenuButton" class="btn btn--large btn--menu"></label>
   </div>
 
-  <script>
+    <script>
+    // 時間と曜日によって表示切り替え
+    (function () {
+      const now = new Date();
+      const day = now.getDay(); // 0:日曜, 1:月曜, ..., 6:土曜
+      const hour = now.getHours();
+      const shouldShow = (day !== 0 && hour >= 11 && hour < 14); // 日曜以外 & 11〜13時台
+      const updateInfo = document.getElementById("image-update-info");
+      if (shouldShow && updateInfo) {
+        updateInfo.style.display = "block";
+      }
+    })();
+
     function getCurrentTimestamp() {
       const now = new Date();
       const yyyy = now.getFullYear();

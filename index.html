@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQQE0P1Q96"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -202,8 +203,9 @@
     <button class="sub-button" onclick="location.href='https://portal.it-chiba.ac.jp/uprx/up/pk/pky001/Pky00101.xhtml/'">CITportal</button>
   </div>
 
-  <div class="menu-header-images" id="menuHeaderImages"></div>
-  <p id="image-update-info" style="display: none;">画像タップで最新画像に更新</p>
+  <!-- 表示制御対象 -->
+  <div class="menu-header-images" id="menuHeaderImages" style="display: none;"></div>
+  <h id="imageUpdateNote" style="display: none;">画像タップで最新画像に更新</h>
 
   <h1>今週の食堂メニュー</h1>
   <div id="menu1" class="menu-image"></div>
@@ -224,20 +226,7 @@
     <label for="actionMenuButton" class="btn btn--large btn--menu"></label>
   </div>
 
-    <script>
-    // 時間と曜日によって表示切り替え
-    (function () {
-      const now = new Date();
-      const day = now.getDay(); // 0:日曜, 1:月曜, ..., 6:土曜
-      const hour = now.getHours();
-      const shouldShow = (day !== 0 && hour >= 11 && hour < 14); // 日曜以外 & 11〜13時台
-      const updateInfo = document.getElementById("image-update-info");
-      if (shouldShow && updateInfo) {
-        updateInfo.style.display = "block";
-        menu-header-images.style.display = "block";
-      }
-    })();
-
+  <script>
     function getCurrentTimestamp() {
       const now = new Date();
       const yyyy = now.getFullYear();
@@ -261,9 +250,20 @@
       return img;
     }
 
-    const headerImageContainer = document.getElementById("menuHeaderImages");
-    headerImageContainer.appendChild(createReloadableImage("https://www.cit-s.com/i_catch/dining/narashino1.jpg?"));
-    headerImageContainer.appendChild(createReloadableImage("https://www.cit-s.com/i_catch/dining/narashino2.jpg?"));
+    function shouldShowMenuHeaderImages() {
+      const now = new Date();
+      const day = now.getDay(); // 日曜:0
+      const hour = now.getHours();
+      return day !== 0 && hour >= 11 && hour < 14;
+    }
+
+    if (shouldShowMenuHeaderImages()) {
+      const headerImageContainer = document.getElementById("menuHeaderImages");
+      headerImageContainer.style.display = "flex";
+      headerImageContainer.appendChild(createReloadableImage("https://www.cit-s.com/i_catch/dining/narashino1.jpg?"));
+      headerImageContainer.appendChild(createReloadableImage("https://www.cit-s.com/i_catch/dining/narashino2.jpg?"));
+      document.getElementById("imageUpdateNote").style.display = "block";
+    }
 
     function getMenuURL(baseName) {
       const today = new Date();

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQQE0P1Q96"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -19,7 +18,7 @@
   <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-TqUoSIxdkbPuooctOiqi5gifXDO0oV1bQ&s">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
-    /* 省略せず全CSS保持 */
+
     body {
       margin: 0;
       font-family: sans-serif;
@@ -196,8 +195,6 @@
   </header>
 
   <div class="talk">⚠️先生が表示するQRは読み取りが必要です⚠️</div>
-  <div class="talk">🚨🚨🚨システムテスト中　正常な動作は保証しません。🚨🚨🚨</div>
-  
 
   <button id="go-today">出席する</button>
 
@@ -229,20 +226,6 @@
   </div>
 
   <script>
-    // --- 通知許可のリクエストと初回通知 ---
-    document.addEventListener("DOMContentLoaded", () => {
-      if ("Notification" in window && Notification.permission !== "granted") {
-        Notification.requestPermission().then(permission => {
-          if (permission === "granted") {
-            new Notification("ラクア通知", {
-              body: "通知が有効になりました！",
-              icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy-TqUoSIxdkbPuooctOiqi5gifXDO0oV1bQ&s"
-            });
-          }
-        });
-      }
-    });
-
     function getCurrentTimestamp() {
       const now = new Date();
       const yyyy = now.getFullYear();
@@ -268,16 +251,16 @@
 
     function shouldShowMenuHeaderImages() {
       const now = new Date();
-      const day = now.getDay();
+      const day = now.getDay(); // 日曜:0
       const hour = now.getHours();
       return day !== 0 && hour >= 11 && hour < 14;
     }
 
     if (shouldShowMenuHeaderImages()) {
-      const container = document.getElementById("menuHeaderImages");
-      container.style.display = "flex";
-      container.appendChild(createReloadableImage("https://www.cit-s.com/i_catch/dining/narashino1.jpg?"));
-      container.appendChild(createReloadableImage("https://www.cit-s.com/i_catch/dining/narashino2.jpg?"));
+      const headerImageContainer = document.getElementById("menuHeaderImages");
+      headerImageContainer.style.display = "flex";
+      headerImageContainer.appendChild(createReloadableImage("https://www.cit-s.com/i_catch/dining/narashino1.jpg?"));
+      headerImageContainer.appendChild(createReloadableImage("https://www.cit-s.com/i_catch/dining/narashino2.jpg?"));
       document.getElementById("imageUpdateNote").style.display = "block";
     }
 
@@ -336,16 +319,16 @@
     document.getElementById("menu2").appendChild(menu2);
 
     document.getElementById("go-today").addEventListener("click", () => {
-      const days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
+      const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
       const today = new Date().getDay();
       const target = days[today];
       location.href = `${target}.html`;
-      // 出席移動時に通知を出す例
-      if (Notification.permission === "granted") {
-        new Notification("出席ありがとうございます！", {
-          body: `${new Date().toLocaleTimeString()} に ${target} ページへ移動しました。`
-        });
-      }
+
+
+
+
+
+
     });
   </script>
 </body>
